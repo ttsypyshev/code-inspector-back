@@ -1,0 +1,165 @@
+.services-container {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Back Button Styles */
+.icon-btn-back {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 10px;
+  left: 10px;
+}
+
+.background-btn-back {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  top: 58px;
+  left: 89px;
+  background-color: var(--background-color-lightest);
+  border-radius: var(--border-radius-xs);
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1940px;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.file-count-text {
+  position: absolute;
+  top: 33px;
+  left: 40px;
+  font-family: var(--font-family-default);
+  color: var(--text-color-light);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-sm);
+  text-align: center;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+.file-count-icon {
+  filter: brightness(0) invert(1);
+  width: 95px;
+  height: 85px;
+  transition: transform 0.1s, filter 0.1s;
+}
+
+.file-count-icon:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2) invert(1);
+}
+
+.file-count-icon:active {
+  transform: scale(0.95);
+  filter: brightness(0.8) invert(1);
+}
+
+/* Search Field Styles */
+.field-search-text {
+  position: relative;
+  left: 81px;
+  width: 1050px;
+  height: 75px;
+  font-family: var(--font-family-default);
+  color: var(--text-color-dark);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-regular);
+  background-color: transparent;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: auto;
+  resize: none;
+  outline: none;
+  border: none;
+  z-index: 5;
+}
+
+.field-search-text::placeholder {
+  font-family: var(--font-family-default);
+  font-size: var(--font-size-lg);
+  color: var(--text-color-dark);
+}
+
+.search-icon {
+  position: absolute;
+  top: 19px;
+  left: 26px;
+  width: 38px;
+  height: 38px;
+}
+
+/* Separator Line */
+.separator-line {
+  position: absolute;
+  top: 280px;
+  left: 260px;
+  width: 1432px;
+  height: 2px;
+  background-color: var(--border-color-light);
+}
+
+/* Section Styles */
+.search-section,
+.file-count-section {
+  position: absolute;
+}
+
+.file-count-section {
+  top: 168px;
+  left: 1511px;
+  width: 95px;
+  height: 85px;
+}
+
+.search-section {
+  top: 174px;
+  left: 314px;
+  width: 1161px;
+  height: 75px;
+  background-color: var(--background-color-lightest);
+  border-radius: var(--border-radius-xl);
+}
+
+/* Service List Styles */
+.service-list {
+  display: flex;
+  flex-wrap: wrap;
+  top: 370px;
+  gap: 30px;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+  width: 1500px;
+  list-style-type: none;
+}
+
+/* Error Message */
+.error {
+  text-align: center;
+  background-color: var(--background-color-dark);
+  color: var(--text-color-light);
+  padding: 30px;
+  border-radius: var(--border-radius-lg);
+  max-width: 400px;
+}
+
+/* Headings */
+h1 {
+  font-family: var(--font-family-default);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-lg);
+  font-weight: var(--font-weight-bold);
+  margin: 0;
+}

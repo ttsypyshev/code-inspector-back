@@ -1,0 +1,179 @@
+  
+  /* Main Information Section */
+  .information-about {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  /* Header Styles */
+  .header {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    top: 58px;
+    left: 89px;
+    border-radius: 5px;
+  }
+  
+  /* Info Container */
+  .info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1940px;
+    margin: 0 auto;
+    position: relative;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Title Styles */
+  .title {
+    position: absolute;
+    width: 759px;
+    height: 217px;
+    top: 226px;
+    left: 312px;
+    background-color: var(--background-color-muted);
+    border-radius: 30px;
+  }
+  
+  /* Text Styles */
+  .text-name-lang,
+  .text-description-lang {
+    position: absolute;
+    left: 27px;
+    font-family: var(--font-family-default);
+    font-weight: var(--font-weight-regular);
+    color: var(--text-color-dark);
+  }
+  
+  .text-name-lang {
+    width: 639px;
+    top: 12px;
+    font-size: var(--font-size-title);
+    letter-spacing: -1.04px;
+    line-height: var(--line-height-title);
+  }
+  
+  .text-description-lang {
+    width: 679px;
+    top: 83px;
+    font-size: var(--font-size-subtitle);
+    letter-spacing: -0.76px;
+    line-height: var(--line-height-subtitle);
+  }
+  
+  /* Image Styles */
+  .img-lang {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 11px;
+    left: 666px;
+    object-fit: cover;
+  }
+  
+  /* Basic Info Section */
+  .background-basic-info {
+    position: absolute;
+    width: 477px;
+    height: 217px;
+    top: 226px;
+    left: 1120px;
+    background-color: var(--background-color-dark);
+    border-radius: 20px;
+    border: 2px solid var(--border-color-light);
+  }
+  
+  /* Tag Styles */
+  .tag-basic-info {
+    position: absolute;
+    width: 457px;
+    left: 15px;
+    font-family: var(--font-family-default);
+    color: var(--text-color-light);
+    font-size: var(--font-size);
+    line-height: var(--line-height-lg);
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .tag-basic-info-1 { top: 0; }
+  .tag-basic-info-2 { top: 70px; }
+  .tag-basic-info-3 { top: 140px; }
+  
+  /* Subtext Styles */
+  .subtext-basic-info {
+    position: absolute;
+    width: 457px;
+    left: 15px;
+    font-family: var(--font-family-default);
+    font-weight: var(--font-weight-regular);
+    color: var(--text-color-light);
+    font-size: var(--font-size);
+    line-height: var(--line-height-lg);
+  }
+  
+  .subtext-basic-info-1 { top: 30px; }
+  .subtext-basic-info-2 { top: 100px; }
+  .subtext-basic-info-3 { top: 170px; }
+  
+  /* Additional Info Section */
+  .background-additional-info {
+    position: absolute;
+    width: 1285px;
+    margin: 20px auto;
+    top: 481px;
+    left: 312px;
+    padding: 30px;
+    background-color: var(--background-color-dark);
+    border-radius: 20px;
+    box-sizing: border-box;
+  }
+  
+  /* Additional Info Text */
+  .text-additional-info {
+    color: var(--text-color-light);
+    font-family: var(--font-family-default);
+    font-size: var(--font-size);
+    letter-spacing: -0.47px;
+    line-height: var(--line-height-lg);
+  }
+  
+  /* Features List */
+  .features-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 30px 0;
+    counter-reset: list-counter;
+  }
+  
+  .features-list li {
+    margin-bottom: 20px;
+    counter-increment: list-counter;
+    position: relative;
+    color: var(--text-color-light);
+    font-family: var(--font-family-default);
+    font-size: var(--font-size);
+    line-height: var(--line-height-lg);
+    letter-spacing: -1.9%;
+    padding-left: 30px;
+  }
+  
+  .features-list li::before {
+    content: counter(list-counter) ". ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: var(--font-weight-regular);
+  }
+  
+  /* Feature Text Styles */
+  .bold-subtext {
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .subtext {
+    font-weight: var(--font-weight-regular);
+  }

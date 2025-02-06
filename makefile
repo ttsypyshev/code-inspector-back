@@ -1,11 +1,15 @@
-.PHONY: run kill_process build
+.PHONY: run kill_process build frontend_build frontend_run backend_build backend_run debug
+
 
 # Переменные
-PORT = 8080
-PROCESS_NAME = main
-BUILD_DIR = bin
 SRC_DIR = src
-EXECUTABLE = $(BUILD_DIR)/$(PROCESS_NAME)
+BACKEND_PORT = 8080
+BACKEND_NAME = main
+BACKEND_BUILD_DIR = bin
+FRONTEND_DIR = frontend
+FRONTEND_PORT = 3000
+FRONTEND_NAME = node
+FRONTEND_BUILD_DIR = dist
 
 # Генерация Swagger-документации
 swag:
@@ -15,27 +19,58 @@ swag:
 
 # Убийство процесса, если нужно
 kill_process:
-	@echo "Поиск процесса '${PROCESS_NAME}' на порту ${PORT}..."
-	@PID=$$(sudo lsof -t -i :${PORT} -sTCP:LISTEN | xargs ps -o pid=,comm= | grep ${PROCESS_NAME} | awk '{print $$1}') && \
+	@echo "Поиск процесса '${BACKEND_NAME}' на порту ${BACKEND_PORT}..."
+	@PID=$$(sudo lsof -t -i :${BACKEND_PORT} -sTCP:LISTEN | xargs ps -o pid=,comm= | grep ${BACKEND_NAME} | awk '{print $$1}') && \
 	if [ -n "$$PID" ]; then \
-		echo "Завершаем процесс '${PROCESS_NAME}' с PID: $$PID"; \
+		echo "Завершаем процесс '${BACKEND_NAME}' с PID: $$PID"; \
 		sudo kill -9 $$PID; \
 	else \
-		echo "Процесс '${PROCESS_NAME}' не найден на порту ${PORT}."; \
+		echo "Процесс '${BACKEND_NAME}' не найден на порту ${BACKEND_PORT}."; \
 	fi
 
+	@echo "Поиск процесса '${FRONTEND_NAME}' на порту ${FRONTEND_PORT}..."
+	@PID=$$(sudo lsof -t -i :${FRONTEND_PORT} -sTCP:LISTEN | xargs ps -o pid=,comm= | grep ${FRONTEND_NAME} | awk '{print $$1}') && \
+	if [ -n "$$PID" ]; then \
+		echo "Завершаем процесс с PID: $$PID"; \
+		sudo kill -9 $$PID; \
+	else \
+		echo "Процесс '${FRONTEND_NAME}' не найден на порту ${FRONTEND_PORT}."; \
+	fi
+
+
 # Сборка Go-программы
-build: swag
+backend_build: swag
 	@echo "Сборка Go-программы..."
-	@go build -v -o $(EXECUTABLE) $(SRC_DIR)/main.go
-	@echo "Сборка завершена. Программа сохранена в $(EXECUTABLE)."
+	@go build -v -o $(BACKEND_BUILD_DIR)/$(BACKEND_NAME) $(SRC_DIR)/main.go
+	@echo "Сборка завершена. Программа сохранена в $(BACKEND_BUILD_DIR)/$(BACKEND_NAME)."
 
 # Запуск Go-программы
-run: kill_process build
+# backend_run: kill_process backend_build
+backend_run:
 	@echo "Запуск Go-программы..."
-	@GIN_MODE=release ./$(EXECUTABLE)
-
-# Запуск Go-программы
-debug: kill_process
-	@echo "Запуск Go-программы (в debug режиме)..."
+#	@GIN_MODE=release ./$(EXECUTABLE)
 	@go run $(SRC_DIR)/main.go
+
+# Сборка фронтенда (React + TypeScript с Vite)
+frontend_build:
+	@echo "Сборка фронтенда..."
+	@cd $(FRONTEND_DIR) && npm install && npm run build
+	@echo "Сборка фронтенда завершена. Приложение собрано в $(FRONTEND_BUILD_DIR)."
+
+# Запуск фронтенда (React + TypeScript с Vite)
+frontend_run:
+	@echo "Запуск фронтенда на порту ${FRONTEND_PORT}..."
+	@cd $(FRONTEND_DIR) && npm run dev
+
+# Общая сборка фронтенда и бэкенда
+build: backend_build frontend_build
+	@echo "Общая сборка завершена: бэкенд и фронтенд собраны."
+
+# Запуск бэкенда и фронтенда вместе
+run: kill_process
+	@echo "Запуск бэкенда и фронтенда..."
+	@$(MAKE) backend_run & 
+	@$(MAKE) frontend_run &
+	@wait
+
+

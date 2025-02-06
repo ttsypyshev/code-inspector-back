@@ -1,0 +1,61 @@
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background-color-darkest);
+    color: var(--text-color-light);
+    font-family: var(--font-family-default);
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.home-body {
+    width: 100%;
+    max-width: 800px;
+    padding: 40px;
+    background-color: var(--background-color-dark);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.home-title {
+    font-size: var(--font-size-title);
+    line-height: var(--line-height-title);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 20px;
+    color: var(--text-color-light);
+}
+
+.home-desc {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-large);
+    font-weight: var(--font-weight-regular);
+    color: var(--text-color-muted);
+    margin-bottom: 30px;
+}
+
+.btn-resume {
+    display: inline-block;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    padding: 15px 25px;
+    color: var(--text-color-light);
+    background-color: var(--background-color-green);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-resume:hover {
+    background-color: var(--background-color-light);
+    transform: translateY(-3px);
+}
+
+.btn-resume:active {
+    background-color: var(--background-color-medium);
+    transform: translateY(0);
+}
