@@ -3,7 +3,7 @@ package backend
 import (
 	"errors"
 	"net/http"
-	"rip/pkg/database"
+	"rip/lib/database"
 	"strconv"
 
 	"github.com/gin-gonic/gin"

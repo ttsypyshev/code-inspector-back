@@ -12,7 +12,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 
 	_ "rip/docs/swagger"
-	"rip/pkg/config"
+	"rip/lib/config"
 )
 
 type App struct {

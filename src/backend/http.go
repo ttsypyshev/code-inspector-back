@@ -3,8 +3,8 @@ package backend
 import (
 	"context"
 	"net/http"
-	"rip/pkg/auth"
-	"rip/pkg/database"
+	"rip/lib/auth"
+	"rip/lib/database"
 	"strings"
 
 	"github.com/gin-gonic/gin"

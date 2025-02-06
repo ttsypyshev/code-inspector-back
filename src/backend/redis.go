@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"rip/pkg/config"
+	"rip/lib/config"
 	"time"
 
 	"github.com/google/uuid"

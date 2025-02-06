@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"net/http"
-	"rip/pkg/auth"
+	"rip/lib/auth"
 	"time"
 
 	"github.com/gin-gonic/gin"

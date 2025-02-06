@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
-	"rip/pkg/config"
-	"rip/pkg/database"
+	"rip/lib/config"
+	"rip/lib/database"
 	"strings"
 	"time"
 

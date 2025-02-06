@@ -54,7 +54,7 @@ func (app *App) GetServiceList(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"langs":   filteredLangs,
-		"draftID": projectID,
+		// "draftID": projectID,
 		"count":   count,
 	})
 }

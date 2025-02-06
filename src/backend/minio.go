@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"mime/multipart"
-	"rip/pkg/config"
+	"rip/lib/config"
 
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
