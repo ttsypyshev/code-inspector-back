@@ -874,7 +874,7 @@ const docTemplate = `{
         },
         "/user/login": {
             "post": {
-                "description": "Authenticates the user and returns a JWT token on successful login.",
+                "description": "Authenticates the user and returns a JWT token on successful login along with user details.",
                 "consumes": [
                     "application/json"
                 ],
@@ -898,7 +898,7 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "User login successful and JWT token generated",
+                        "description": "User login successful and JWT token generated along with user details",
                         "schema": {
                             "$ref": "#/definitions/backend.UserLoginResponse"
                         }
@@ -1126,6 +1126,26 @@ const docTemplate = `{
                 }
             }
         },
+        "backend.DbUser": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "role": {
+                    "$ref": "#/definitions/database.Role"
+                }
+            }
+        },
         "backend.DeleteFileRequest": {
             "type": "object",
             "properties": {
@@ -1336,6 +1356,14 @@ const docTemplate = `{
                 "token_type": {
                     "type": "string",
                     "example": "Bearer"
+                },
+                "user": {
+                    "description": "Включаем всю структуру пользователя",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/backend.DbUser"
+                        }
+                    ]
                 }
             }
         },
@@ -1438,6 +1466,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "moderatorID": {
+                    "type": "string"
+                },
+                "qr": {
                     "type": "string"
                 },
                 "status": {

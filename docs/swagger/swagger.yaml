@@ -46,6 +46,19 @@ definitions:
         example: "2024"
         type: string
     type: object
+  backend.DbUser:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      login:
+        type: string
+      name:
+        type: string
+      role:
+        $ref: '#/definitions/database.Role'
+    type: object
   backend.DeleteFileRequest:
     properties:
       lang_id:
@@ -192,6 +205,10 @@ definitions:
       token_type:
         example: Bearer
         type: string
+      user:
+        allOf:
+        - $ref: '#/definitions/backend.DbUser'
+        description: Включаем всю структуру пользователя
     type: object
   database.File:
     properties:
@@ -259,6 +276,8 @@ definitions:
       moderatorComment:
         type: string
       moderatorID:
+        type: string
+      qr:
         type: string
       status:
         $ref: '#/definitions/database.Status'
@@ -922,7 +941,8 @@ paths:
     post:
       consumes:
       - application/json
-      description: Authenticates the user and returns a JWT token on successful login.
+      description: Authenticates the user and returns a JWT token on successful login
+        along with user details.
       parameters:
       - description: User login credentials
         in: body
@@ -934,7 +954,8 @@ paths:
       - application/json
       responses:
         "200":
-          description: User login successful and JWT token generated
+          description: User login successful and JWT token generated along with user
+            details
           schema:
             $ref: '#/definitions/backend.UserLoginResponse'
         "400":

@@ -1,13 +1,19 @@
 package backend
 
 import (
+	"bytes"
+	"encoding/base64"
 	"errors"
 	"fmt"
 	"log"
+	"rip/lib/database"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/skip2/go-qrcode"
 	"gorm.io/gorm"
 )
 
@@ -95,4 +101,29 @@ func ExtractUserID(c *gin.Context) (uuid.UUID, error) {
 	}
 
 	return userID, nil
+}
+
+// Генерация QR-кода для заказа
+func generateProjectQR(projectID uint, status database.Status, date time.Time) (string, error) {
+	info := "Проект №" + strconv.FormatUint(uint64(projectID), 10) + "\n" +
+		"Статус: " + string(status) + "\n" +
+		"Дата создания: " + date.Format(time.RFC3339)
+
+	// Генерация QR-кода
+	qr, err := qrcode.New(info, qrcode.Medium)
+	if err != nil {
+		return "", err
+	}
+
+	// Сохранение QR-кода в буфер
+	var buf bytes.Buffer
+	err = qr.Write(256, &buf)
+	if err != nil {
+		return "", err
+	}
+
+	// Кодирование изображения в Base64
+	qrBase64 := base64.StdEncoding.EncodeToString(buf.Bytes())
+	log.Println("Я тут")
+	return qrBase64, nil
 }

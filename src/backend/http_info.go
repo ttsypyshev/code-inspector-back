@@ -2,6 +2,7 @@ package backend
 
 import (
 	"errors"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -54,7 +55,7 @@ func (app *App) GetServiceList(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"langs":   filteredLangs,
-		// "draftID": projectID,
+		"draftID": projectID,
 		"count":   count,
 	})
 }
@@ -256,7 +257,7 @@ func (app *App) UpdateServiceImage(c *gin.Context) {
 	}
 
 	service.ImgLink = &imageURL
-	service.Status = false
+	service.Status = true
 
 	if err := app.updateLang(&service); err != nil {
 		handleError(c, http.StatusInternalServerError, errors.New("[err] failed to update service image path"), err)
@@ -295,9 +296,15 @@ func (app *App) DeleteService(c *gin.Context) {
 		return
 	}
 
-	if err := app.deleteImageFromMinIO(*service.ImgLink); err != nil {
-		handleError(c, http.StatusInternalServerError, errors.New("[err] failed to delete image from MinIO"), err)
-		return
+	// Проверяем, что ImgLink не nil перед удалением
+	if service.ImgLink != nil && *service.ImgLink != "" {
+		if err := app.deleteImageFromMinIO(*service.ImgLink); err != nil {
+			handleError(c, http.StatusInternalServerError, errors.New("[err] failed to delete image from MinIO"), err)
+			return
+		}
+	} else {
+		// Логируем или сообщаем, что изображения нет для удаления
+		log.Println("No image to delete for service", service.ID)
 	}
 
 	if err := app.deleteLang(uint(id)); err != nil {

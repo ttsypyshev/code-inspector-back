@@ -285,15 +285,17 @@ func (app *App) createUser(login, password, name, email string) (uuid.UUID, erro
 
 func (app *App) updateUser(user *DbUser) error {
 	if err := app.db.db.Model(&DbUser{}).Where("id = ?", user.ID).Updates(map[string]interface{}{
-		"name":  user.Name,
-		"login": user.Login,
-		"role":  user.Role,
+		"name":     user.Name,
+		"login":    user.Login,
+		"role":     user.Role,
+		"password": user.Password,
 	}).Error; err != nil {
 		return err
 	}
 
 	return nil
 }
+
 
 func (app *App) deleteUser(userID uuid.UUID) error {
 	if err := app.db.db.Delete(&DbUser{}, userID).Error; err != nil {
@@ -332,7 +334,7 @@ func findLastDraft(app *App, userID uuid.UUID) (uint, error) {
 // Функция для фильтрации проектов по дате и статусу
 func (app *App) filterProjects(startDate, endDate, status string) ([]DbProject, error) {
 	var projects []DbProject
-	query := app.db.db.Model(&DbProject{}).Preload("User").Preload("Moderator").Where("status NOT IN (?)", []string{string(database.Draft), string(database.Deleted)})
+	query := app.db.db.Model(&DbProject{}).Preload("User").Preload("Moderator").Where("status NOT IN (?)", string(database.Deleted))
 
 	if startDate != "" {
 		start, err := time.Parse("2006-01-02", startDate)

@@ -279,6 +279,13 @@ func (app *App) CompleteProject(c *gin.Context) {
 		project.ModeratorComment = req.Comment
 	}
 
+	qrBase64, err := generateProjectQR(project.ID, project.Status, project.CreationTime)
+	if err != nil {
+		handleError(c, http.StatusInternalServerError, errors.New("[err] Error generating QR code"))
+		return
+	}
+	project.Qr = qrBase64
+
 	err = app.updateAutocheck(project.ID)
 	if err != nil {
 		handleError(c, http.StatusBadRequest, errors.New("[err] failed update autocheck"), err)

@@ -43,6 +43,7 @@ type Project struct {
 	ModeratorID      *uuid.UUID `gorm:"type:uuid"`
 	Moderator        *User      `gorm:"foreignKey:ModeratorID" json:"Moderator,omitempty"`
 	ModeratorComment *string    `gorm:"type:text"`
+	Qr                string    `json:"qr" gorm:"type:text"`
 }
 
 // File представляет файл

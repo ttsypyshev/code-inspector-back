@@ -871,7 +871,7 @@
         },
         "/user/login": {
             "post": {
-                "description": "Authenticates the user and returns a JWT token on successful login.",
+                "description": "Authenticates the user and returns a JWT token on successful login along with user details.",
                 "consumes": [
                     "application/json"
                 ],
@@ -895,7 +895,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "User login successful and JWT token generated",
+                        "description": "User login successful and JWT token generated along with user details",
                         "schema": {
                             "$ref": "#/definitions/backend.UserLoginResponse"
                         }
@@ -1123,6 +1123,26 @@
                 }
             }
         },
+        "backend.DbUser": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "role": {
+                    "$ref": "#/definitions/database.Role"
+                }
+            }
+        },
         "backend.DeleteFileRequest": {
             "type": "object",
             "properties": {
@@ -1333,6 +1353,14 @@
                 "token_type": {
                     "type": "string",
                     "example": "Bearer"
+                },
+                "user": {
+                    "description": "Включаем всю структуру пользователя",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/backend.DbUser"
+                        }
+                    ]
                 }
             }
         },
@@ -1435,6 +1463,9 @@
                     "type": "string"
                 },
                 "moderatorID": {
+                    "type": "string"
+                },
+                "qr": {
                     "type": "string"
                 },
                 "status": {

@@ -19,7 +19,7 @@ func (app *App) SetupRoutes(r *gin.Engine) {
 	r.PUT("/info/:id", app.AuthMiddleware(), RoleMiddleware(database.Admin), app.UpdateService)       // Изменить данные услуги по ее ID.
 	r.POST("/info/:id", app.AuthMiddleware(), RoleMiddleware(database.Admin), app.UpdateServiceImage) // Добавить или заменить изображение для услуги с указанным ID. Если изображение уже существует, оно заменяется.
 	r.DELETE("/info/:id", app.AuthMiddleware(), RoleMiddleware(database.Admin), app.DeleteService)    // Удалить услугу вместе с изображением.
-	r.POST("/info/add-service", app.AuthMiddleware(), app.AddServiceToDraft)                          // Добавить услугу в заявку-черновик. Если черновик отсутствует, создается новый с указанными значениями.
+	r.POST("/info/add-service", app.AuthMiddleware(), RoleMiddleware(database.Student), app.AddServiceToDraft)                          // Добавить услугу в заявку-черновик. Если черновик отсутствует, создается новый с указанными значениями.
 
 	// Заявки (домен: `/project`)
 	r.GET("/project", app.AuthMiddleware(), app.GetProjectList)                                               // Получить список заявок с фильтрацией по диапазону даты формирования и статусу (исключая удаленные и черновики, поля модератора и создателя отображаются через логины).

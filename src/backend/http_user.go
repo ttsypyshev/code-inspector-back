@@ -115,16 +115,17 @@ type UserLoginResponse struct {
 	ExpiresIn   time.Duration `json:"expires_in" example:"86400"`
 	AccessToken string        `json:"access_token" example:"JWT_TOKEN"`
 	TokenType   string        `json:"token_type" example:"Bearer"`
+	User        DbUser        `json:"user"` // Включаем всю структуру пользователя
 }
 
 // UserLogin godoc
 // @Summary User login
-// @Description Authenticates the user and returns a JWT token on successful login.
+// @Description Authenticates the user and returns a JWT token on successful login along with user details.
 // @Tags Users
 // @Accept json
 // @Produce json
 // @Param request body UserLoginRequest true "User login credentials"
-// @Success 200 {object} UserLoginResponse "User login successful and JWT token generated"
+// @Success 200 {object} UserLoginResponse "User login successful and JWT token generated along with user details"
 // @Failure 400 {object} ErrorResponse "Invalid login or password"
 // @Failure 500 {object} ErrorResponse "Failed to generate or save session"
 // @Router /user/login [post]
@@ -159,6 +160,7 @@ func (app *App) UserLogin(c *gin.Context) {
 		ExpiresIn:   expiration,
 		AccessToken: token,
 		TokenType:   "Bearer",
+		User:        user,
 	})
 }
 
