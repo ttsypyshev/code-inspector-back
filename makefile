@@ -24,6 +24,19 @@ kill_process:
 		echo "Процесс '${PROCESS_NAME}' не найден на порту ${PORT}."; \
 	fi
 
+# Запуск в Docker
+docker-build:
+	@echo "Сборка Docker-образа..."
+	@sudo docker compose build backend
+
+docker-run: docker-build
+	@echo "Запуск Go-программы в Docker..."
+	@sudo docker compose up backend
+
+docker-stop:
+	@echo "Остановка контейнера..."
+	@sudo docker compose down
+
 # Сборка Go-программы
 build: swag
 	@echo "Сборка Go-программы..."

@@ -132,6 +132,21 @@ services:
     restart: unless-stopped
     tty: true
     stdin_open: true
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: go_backend
+    ports:
+      - "8080:8080"
+    environment:
+      GIN_MODE: "release"
+      DB_HOST: postgres
+      MINIO_ENDPOINT: minio1:9000
+      REDIS_ADDR: redis:6379
+    depends_on:
+      - postgres
+      - redis
 
 ## По умолчанию в этой конфигурации используется локальный драйвер docker по умолчанию,
 ## Для пользовательских томов замените на конфигурацию драйвера тома.

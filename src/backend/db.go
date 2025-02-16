@@ -296,7 +296,6 @@ func (app *App) updateUser(user *DbUser) error {
 	return nil
 }
 
-
 func (app *App) deleteUser(userID uuid.UUID) error {
 	if err := app.db.db.Delete(&DbUser{}, userID).Error; err != nil {
 		return err
@@ -341,6 +340,7 @@ func (app *App) filterProjects(startDate, endDate, status string) ([]DbProject, 
 		if err != nil {
 			return nil, err
 		}
+		start = start.Add(0*time.Hour + 0*time.Minute + 0*time.Second)
 		query = query.Where("creation_time >= ?", start)
 	}
 
@@ -349,6 +349,7 @@ func (app *App) filterProjects(startDate, endDate, status string) ([]DbProject, 
 		if err != nil {
 			return nil, err
 		}
+		end = end.Add(23*time.Hour + 59*time.Minute + 59*time.Second)
 		query = query.Where("creation_time <= ?", end)
 	}
 

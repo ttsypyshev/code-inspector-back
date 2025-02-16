@@ -26,7 +26,7 @@ type Lang struct {
 	Author           *string `gorm:"size:50"`
 	Year             *string `gorm:"size:4"`
 	Version          *string `gorm:"size:50"`
-	List             JSONB  `gorm:"type:jsonb"`
+	List             JSONB   `gorm:"type:jsonb"`
 	Status           bool    `gorm:"default:true;not null"`
 }
 
@@ -43,7 +43,7 @@ type Project struct {
 	ModeratorID      *uuid.UUID `gorm:"type:uuid"`
 	Moderator        *User      `gorm:"foreignKey:ModeratorID" json:"Moderator,omitempty"`
 	ModeratorComment *string    `gorm:"type:text"`
-	Qr                string    `json:"qr" gorm:"type:text"`
+	Qr               string     `json:"qr" gorm:"type:text"`
 }
 
 // File представляет файл
